@@ -1,6 +1,6 @@
-package com.leobooth.page_objects.paraBank;
+package com.leobooth.practice.tests.parabank.pageObjects;
 
-import com.leobooth.page_objects.BasePage;
+import com.leobooth.practice.tests.bases.BasePage;
 import org.openqa.selenium.WebDriver;
 
 public class ParaBankHomePage extends BasePage {

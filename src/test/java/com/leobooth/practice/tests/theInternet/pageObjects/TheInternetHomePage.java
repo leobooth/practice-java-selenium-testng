@@ -1,6 +1,6 @@
-package com.leobooth.page_objects.theInternet;
+package com.leobooth.practice.tests.theInternet.pageObjects;
 
-import com.leobooth.page_objects.BasePage;
+import com.leobooth.practice.tests.bases.BasePage;
 import org.openqa.selenium.WebDriver;
 
 public class TheInternetHomePage extends BasePage {

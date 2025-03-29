@@ -1,4 +1,4 @@
-package com.leobooth.utilities;
+package com.leobooth.practice.tests.bases;
 
 import java.util.ArrayList;
 import org.openqa.selenium.WebDriver;

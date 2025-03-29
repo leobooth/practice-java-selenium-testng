@@ -1,4 +1,4 @@
-package com.leobooth.utilities;
+package com.leobooth.practice.framework.waits;
 
 import java.time.Duration;
 
