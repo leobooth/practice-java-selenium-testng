@@ -1,6 +1,6 @@
 package com.leobooth.practice.tests.parabank.tests;
 
-import com.leobooth.practice.framework.waits.WaitUtils;
+import com.leobooth.practice.framework.waits.WaitFluent;
 import com.leobooth.practice.tests.bases.BaseTest;
 import com.leobooth.practice.tests.parabank.pageObjects.ParaBankHomePage;
 
@@ -19,9 +19,7 @@ public class TestPageTitle extends BaseTest {
     homePage.navToPage();
     String expectedTitle = "ParaBank";
     String actualTitle = homePage.getPageTitle();
-    // TODO: replace with wait for ExpectedCondition
-    WaitUtils.hardWaitForSeconds(2);
-
+    WaitFluent.untilElementVisible(driver, 5, homePage.LOGO_IMAGE);
     Assert.assertTrue(actualTitle.contains(expectedTitle), "Page title did not contain " + expectedTitle);
   }
 }
