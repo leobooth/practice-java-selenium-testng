@@ -1,10 +1,18 @@
 package com.leobooth.practice.framework.baseObjects;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.leobooth.practice.framework.waits.WaitFluent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.asserts.SoftAssert;
 
 public class BaseTest {
 
@@ -21,6 +29,37 @@ public class BaseTest {
     testDrivers.add(driver);
     return driver;
   }
+
+  public SoftAssert testExpectedLinksPresent(WebDriver driver, LinkedHashMap<String, By> links) {
+    SoftAssert softAssert = new SoftAssert();
+    for (Map.Entry<String, By> link : links.entrySet()) {
+      boolean linkFound = false;
+      try {
+        WaitFluent.untilElementsAreDisplayed(driver, link.getValue());
+        ArrayList<WebElement> elements = new ArrayList<>(driver.findElements(link.getValue()));
+        if (elements.isEmpty()) {
+          linkFound = false;
+        } else {
+          for (WebElement element : elements) {
+            if (!element.isDisplayed()) {
+              linkFound = false;
+              System.out.println("Did not find link: " + link.getKey());
+            }
+          }
+        }
+        linkFound = true;
+        System.out.println("Found link: " + link.getKey());
+      } catch (TimeoutException e) {
+        linkFound = false;
+        System.out.println("Did not find link: " + link.getKey());
+      } finally {
+        softAssert.assertTrue(linkFound);
+      }
+    }
+
+    return softAssert;
+  }
+
 
   @AfterClass
   public void tearDown() {

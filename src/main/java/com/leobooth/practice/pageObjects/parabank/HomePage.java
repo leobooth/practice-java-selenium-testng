@@ -71,6 +71,7 @@ public class HomePage extends BasePage {
   static {
     links = new LinkedHashMap<>();
     links.put("PARABANK_ADMIN_BUTTON", PARABANK_ADMIN_BUTTON);
+    links.put("PARABANK_LOGO", PARABANK_LOGO);
     links.put("LEFT_MENU_SOLUTIONS", LEFT_MENU_SOLUTIONS);
     links.put("LEFT_MENU_ABOUT_US", LEFT_MENU_ABOUT_US);
     links.put("LEFT_MENU_SERVICES", LEFT_MENU_SERVICES);
@@ -103,6 +104,7 @@ public class HomePage extends BasePage {
     links.put("FOOTER_VISIT_US", FOOTER_VISIT_US);
   }
 
+  // TODO: create input tests
   public static final HashMap<String, By> inputs;
   static {
     inputs = new HashMap<>();
