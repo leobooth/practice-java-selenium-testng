@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
 
 public class BaseTest {
 
@@ -22,7 +22,7 @@ public class BaseTest {
     return driver;
   }
 
-  @AfterMethod
+  @AfterClass
   public void tearDown() {
     if (!testDrivers.isEmpty()) {
       for(WebDriver driver : testDrivers) {
