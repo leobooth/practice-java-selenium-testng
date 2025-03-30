@@ -1,6 +1,7 @@
 package com.leobooth.practice.framework.baseObjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 public class BasePage {
 
@@ -17,36 +18,45 @@ public class BasePage {
     this.pageUrl = pageUrl;
     this.pageName = pageName;
   }
+  protected WebDriver getDriver() {
+    return this.driver;
+  }
+
+  public String getUrl() {
+    return driver.getCurrentUrl();
+  }
 
   protected void setPageUrl(String pageUrl) {
     this.pageUrl = pageUrl;
+  }
+
+  public String getPageName() {
+    return this.pageName;
   }
 
   protected void setPageName(String pageName) {
     this.pageName = pageName;
   }
 
-  protected WebDriver getDriver() {
-    return this.driver;
-  }
-
-  public boolean isBrowserOnPage() {
-    return driver.getCurrentUrl().contains(pageUrl);
-  }
-
   public void navToPage() {
     driver.navigate().to(pageUrl);
     System.out.println("navigated to " + pageName);  }
 
-  public String getUrl() {
-    return driver.getCurrentUrl();
+  public boolean isBrowserOnPage() {
+    try {
+      String currentUrl = driver.getCurrentUrl();
+      if (currentUrl != null) {
+        return currentUrl.equals(pageUrl);
+      } else {
+        return false;
+      }
+    } catch (WebDriverException we) {
+      return false;
+    }
   }
 
   public String getPageTitle() {
     return driver.getTitle();
   }
 
-  public String getPageName() {
-    return this.pageName;
-  }
 }
