@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class HomePage extends BasePage {
 
@@ -54,9 +55,9 @@ public class HomePage extends BasePage {
   public static By LATEST_NEWS_DATE_LABEL = By.xpath("//h4[text()='Latest News']/following-sibling::ul/li[@class='captionthree']");
   public static By LATEST_NEWS_LINKS = By.xpath("//h4[text()='Latest News']/following-sibling::ul/li/a");
 
-  public static final HashMap<String, By> links;
+  public static final LinkedHashMap<String, By> links;
   static {
-    links = new HashMap<>();
+    links = new LinkedHashMap<>();
     links.put("PARABANK_ADMIN_BUTTON", PARABANK_ADMIN_BUTTON);
     links.put("LEFT_MENU_SOLUTIONS", LEFT_MENU_SOLUTIONS);
     links.put("LEFT_MENU_ABOUT_US", LEFT_MENU_ABOUT_US);
