@@ -50,10 +50,22 @@ public class HomePage extends BasePage {
   public static By BILL_PAY = By.xpath("//a[text()='Bill Pay']");
   public static By ACCOUNT_HISTORY = By.xpath("//a[text()='Account History']");
   public static By TRANSFER_FUNDS_ONLINE = By.xpath("//li[text()='Online Services']/following-sibling::li/a[text()='Transfer Funds']");
+  public static By ONLINE_SERVICES_READ_MORE = By.xpath("(//a[text()='Read More'])[1]");
 
   public static By LATEST_NEWS_LABEL = By.xpath("//h4[text()='Latest News']");
   public static By LATEST_NEWS_DATE_LABEL = By.xpath("//h4[text()='Latest News']/following-sibling::ul/li[@class='captionthree']");
   public static By LATEST_NEWS_LINKS = By.xpath("//h4[text()='Latest News']/following-sibling::ul/li/a");
+  public static By LATEST_NEWS_READ_MORE = By.xpath("(//a[text()='Read More'])[2]");
+
+  public static By FOOTER_HOME = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Home']");
+  public static By FOOTER_ABOUT_US = By.xpath("//div[@id='footerPanel']/descendant::a[text()='About Us']");
+  public static By FOOTER_SERVICES = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Services']");
+  public static By FOOTER_PRODUCTS = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Products']");
+  public static By FOOTER_LOCATIONS = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Locations']");
+  public static By FOOTER_FORUM = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Forum']");
+  public static By FOOTER_SITE_MAP = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Site Map']");
+  public static By FOOTER_CONTACT_US = By.xpath("//div[@id='footerPanel']/descendant::a[text()='Contact Us']");
+  public static By FOOTER_VISIT_US = By.xpath("//li[text()='Visit us at:']/following-sibling::li/a");
 
   public static final LinkedHashMap<String, By> links;
   static {
@@ -77,7 +89,18 @@ public class HomePage extends BasePage {
     links.put("BILL_PAY", BILL_PAY);
     links.put("ACCOUNT_HISTORY", ACCOUNT_HISTORY);
     links.put("TRANSFER_FUNDS_ONLINE", TRANSFER_FUNDS_ONLINE);
+    links.put("ONLINE_SERVICES_READ_MORE", ONLINE_SERVICES_READ_MORE);
     links.put("LATEST_NEWS_LINKS", LATEST_NEWS_LINKS);
+    links.put("LATEST_NEWS_READ_MORE", LATEST_NEWS_READ_MORE);
+    links.put("FOOTER_HOME", FOOTER_HOME);
+    links.put("FOOTER_ABOUT_US", FOOTER_ABOUT_US);
+    links.put("FOOTER_SERVICES", FOOTER_SERVICES);
+    links.put("FOOTER_PRODUCTS", FOOTER_PRODUCTS);
+    links.put("FOOTER_LOCATIONS", FOOTER_LOCATIONS);
+    links.put("FOOTER_FORUM", FOOTER_FORUM);
+    links.put("FOOTER_SITE_MAP", FOOTER_SITE_MAP);
+    links.put("FOOTER_CONTACT_US", FOOTER_CONTACT_US);
+    links.put("FOOTER_VISIT_US", FOOTER_VISIT_US);
   }
 
   public static final HashMap<String, By> inputs;
