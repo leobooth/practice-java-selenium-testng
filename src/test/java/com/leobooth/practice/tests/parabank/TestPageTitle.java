@@ -1,8 +1,8 @@
-package com.leobooth.practice.tests.parabank.tests;
+package com.leobooth.practice.tests.parabank;
 
 import com.leobooth.practice.framework.waits.WaitFluent;
-import com.leobooth.practice.tests.bases.BaseTest;
-import com.leobooth.practice.tests.parabank.pageObjects.ParaBankHomePage;
+import com.leobooth.practice.framework.baseObjects.BaseTest;
+import com.leobooth.practice.pageObjects.parabank.ParaBankHomePage;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -19,7 +19,7 @@ public class TestPageTitle extends BaseTest {
     homePage.navToPage();
     String expectedTitle = "ParaBank";
     String actualTitle = homePage.getPageTitle();
-    WaitFluent.untilElementVisible(driver, 5, homePage.LOGO_IMAGE);
+    WaitFluent.untilElementVisible(driver, homePage.LOGO_IMAGE);
     Assert.assertTrue(actualTitle.contains(expectedTitle), "Page title did not contain " + expectedTitle);
   }
 }

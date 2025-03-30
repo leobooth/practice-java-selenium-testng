@@ -1,4 +1,4 @@
-package com.leobooth.practice.tests.bases;
+package com.leobooth.practice.framework.baseObjects;
 
 import org.openqa.selenium.WebDriver;
 
