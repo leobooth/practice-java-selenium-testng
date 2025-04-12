@@ -15,7 +15,7 @@ public class TestHomePageContents extends BaseTest {
     WebDriver driver;
     HomePage homePage;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setup() {
         driver = setupTestDriverChrome();
         driver.manage().window().maximize();
@@ -24,19 +24,19 @@ public class TestHomePageContents extends BaseTest {
         WaitFluent.untilElementIsDisplayed(driver, HomePage.PARABANK_LOGO);
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void testPageUrl() {
         Assert.assertTrue(homePage.isBrowserOnPage());
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void testPageTitle() {
         String expectedTitle = "ParaBank";
         String actualTitle = homePage.getPageTitle();
         Assert.assertTrue(actualTitle.contains(expectedTitle), "Page title did not contain " + expectedTitle);
     }
 
-    @Test
+    @Test(groups = {"links"})
     public void testHomePageLinks() {
         SoftAssert softAssert = testExpectedLinksPresent(driver, HomePage.links);
         softAssert.assertAll();

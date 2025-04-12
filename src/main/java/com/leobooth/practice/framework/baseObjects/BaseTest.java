@@ -30,6 +30,7 @@ public class BaseTest {
     return driver;
   }
 
+  // TODO: use this as part of a crawler / graph-walking test?
   public SoftAssert testExpectedLinksPresent(WebDriver driver, LinkedHashMap<String, By> links) {
     SoftAssert softAssert = new SoftAssert();
     for (Map.Entry<String, By> link : links.entrySet()) {
@@ -61,7 +62,7 @@ public class BaseTest {
   }
 
 
-  @AfterClass
+  @AfterClass(alwaysRun = true)
   public void tearDown() {
     if (!testDrivers.isEmpty()) {
       for(WebDriver driver : testDrivers) {
