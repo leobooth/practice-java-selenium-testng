@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.leobooth.practice.framework.waits.WaitFluent;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 
 public class BaseTest {
 
+  public static Dotenv ENV_VARS = Dotenv.configure().load();
   private ArrayList<WebDriver> testDrivers = new ArrayList<>();
 
   public WebDriver setupTestDriverChrome() {
@@ -60,7 +62,6 @@ public class BaseTest {
 
     return softAssert;
   }
-
 
   @AfterClass(alwaysRun = true)
   public void tearDown() {

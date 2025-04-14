@@ -30,3 +30,6 @@ target/*
 
 # Test output
 testOutput
+
+# local environment variables
+.env
