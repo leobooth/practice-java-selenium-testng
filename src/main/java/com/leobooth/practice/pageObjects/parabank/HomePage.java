@@ -3,6 +3,7 @@ package com.leobooth.practice.pageObjects.parabank;
 import com.leobooth.practice.framework.baseObjects.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -104,11 +105,20 @@ public class HomePage extends BasePage {
     links.put("FOOTER_VISIT_US", FOOTER_VISIT_US);
   }
 
-  // TODO: create input tests
+  // TODO: create tests to check for unusual input
   public static final HashMap<String, By> inputs;
   static {
     inputs = new HashMap<>();
     inputs.put("USERNAME_INPUT", USERNAME_INPUT);
     inputs.put("PASSWORD_INPUT", PASSWORD_INPUT);
+  }
+
+  public void login(String username, String password) {
+    WebElement usernameInput = getDriver().findElement(USERNAME_INPUT);
+    usernameInput.sendKeys(username);
+    WebElement passwordInput = getDriver().findElement(PASSWORD_INPUT);
+    passwordInput.sendKeys(password);
+    WebElement loginButton = getDriver().findElement(LOGIN_BUTTON);
+    loginButton.click();
   }
 }
