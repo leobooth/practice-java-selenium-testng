@@ -10,8 +10,11 @@ Each test class can contain one or more tests
 
 To run tests:
 1. label tests with "group" annotation:
-   2. such as "@Test(groups={'smoke'})"
+   1. such as "@Test(groups={'smoke'})"
 2. in Terminal, run the following commands:
    1. mvn clean test -Dgroups=group_name
    2. mvn clean test -Dtest=class_name
    3. mvn clean test -Dtest=class_name#testMethod
+3. optional Maven command-line parameters:
+   1. -DtestBrowser=browser_name
+      1. currently 'Chrome' or 'Edge'
