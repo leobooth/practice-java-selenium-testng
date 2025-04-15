@@ -18,7 +18,8 @@ public class BasePage {
     this.pageUrl = pageUrl;
     this.pageName = pageName;
   }
-  protected WebDriver getDriver() {
+
+  public WebDriver getDriver() {
     return this.driver;
   }
 
@@ -46,7 +47,7 @@ public class BasePage {
     try {
       String currentUrl = driver.getCurrentUrl();
       if (currentUrl != null) {
-        return currentUrl.equals(pageUrl);
+        return currentUrl.contains(pageUrl);
       } else {
         return false;
       }

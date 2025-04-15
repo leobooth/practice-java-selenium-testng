@@ -4,6 +4,8 @@ import com.leobooth.practice.framework.baseObjects.BaseTest;
 import com.leobooth.practice.framework.waits.WaitFluent;
 import com.leobooth.practice.pageObjects.parabank.AccountsOverviewPage;
 import com.leobooth.practice.pageObjects.parabank.HomePage;
+import com.leobooth.practice.pageObjects.parabank.RegisterUserPage;
+import com.leobooth.practice.tests.parabank.registerUser.TestRegisterUser;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -11,28 +13,36 @@ import org.testng.annotations.Test;
 
 public class TestLogin extends BaseTest {
     WebDriver driver;
-    HomePage homePage;
     AccountsOverviewPage accountsOverviewPage;
 
     @BeforeClass()
     public void setup() {
         driver = setupTestDriver();
         driver.manage().window().maximize();
-        setupLogin();
+        HomePage homePage = new HomePage(driver);
+        TestHomePageContents.setupHomePage(homePage);
+
+        // the Parabank website erases registered users often
+        // re-register before running login test to ensure user exists
+        RegisterUserPage registerUserPage = new RegisterUserPage(driver);
+        TestRegisterUser.setupRegisterUser(driver, registerUserPage);
+        TestRegisterUser.registerUser(new RegisterUserPage(driver));
+
+        homePage.navToPage();
+        setupLogin(new HomePage(driver));
+
+        accountsOverviewPage = new AccountsOverviewPage(driver);
     }
 
-    public void setupLogin() {
-        homePage = new HomePage(driver);
-        homePage.navToPage();
-        WaitFluent.untilElementIsDisplayed(driver, HomePage.PARABANK_LOGO);
+    public static void setupLogin(HomePage homePage) {
         String username = ENV_VARS.get("PARABANK_USERNAME");
         String password = ENV_VARS.get("PARABANK_PASSWORD");
+        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), HomePage.USERNAME_INPUT);
+        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), HomePage.PASSWORD_INPUT);
         homePage.login(username, password);
-        accountsOverviewPage = new AccountsOverviewPage(driver);
-        WaitFluent.untilElementIsDisplayed(driver, AccountsOverviewPage.WELCOME_MESSAGE);
+        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), AccountsOverviewPage.WELCOME_MESSAGE);
     }
 
-    // the Parabank website erases registered users often; re-register before running login test
     @Test(groups = "login")
     public void testLogin() {
         Assert.assertTrue(accountsOverviewPage.isBrowserOnPage(), "After login, the browser did not navigate to Accounts Overview page.");
@@ -44,6 +54,6 @@ public class TestLogin extends BaseTest {
     public void testLogout() {
         accountsOverviewPage.logout();
         WaitFluent.untilElementIsDisplayed(driver, HomePage.CUSTOMER_LOGIN_LABEL);
-        Assert.assertTrue(homePage.isBrowserOnPage());
+        Assert.assertTrue(new HomePage(driver).isBrowserOnPage());
     }
 }

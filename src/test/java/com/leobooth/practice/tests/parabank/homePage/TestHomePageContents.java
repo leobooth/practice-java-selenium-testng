@@ -20,12 +20,12 @@ public class TestHomePageContents extends BaseTest {
         driver = setupTestDriver();
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
-        setupHomePage(driver, homePage);
+        setupHomePage(homePage);
     }
 
-    public static void setupHomePage(WebDriver driver, HomePage homePage) {
+    public static void setupHomePage(HomePage homePage) {
         homePage.navToPage();
-        WaitFluent.untilElementIsDisplayed(driver, HomePage.PARABANK_LOGO);
+        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), HomePage.PARABANK_LOGO);
     }
 
     @Test(groups = {"smoke"})

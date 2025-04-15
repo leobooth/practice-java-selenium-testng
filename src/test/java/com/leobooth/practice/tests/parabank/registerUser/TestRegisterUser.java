@@ -15,30 +15,27 @@ import org.testng.annotations.Test;
 
 public class TestRegisterUser extends BaseTest {
     WebDriver driver;
-    HomePage homePage;
-    RegisterUserPage registerUserPage;
     ParabankUser parabankUser;
+    RegisterUserPage registerUserPage;
 
-    @BeforeClass()
+    @BeforeClass
     public void setup() {
         driver = setupTestDriver();
         driver.manage().window().maximize();
-        homePage = new HomePage(driver);
-        TestHomePageContents.setupHomePage(driver, homePage);
+        TestHomePageContents.setupHomePage(new HomePage(driver));
+        parabankUser = new ParabankUser(ENV_VARS);
         registerUserPage = new RegisterUserPage(driver);
         setupRegisterUser(driver, registerUserPage);
-        parabankUser = new ParabankUser(ENV_VARS);
     }
 
-    public static void setupRegisterUser(WebDriver driver, RegisterUserPage registerUserPage) {
-        WaitFluent.untilElementIsDisplayed(driver, HomePage.REGISTER);
-        Element.action.click(driver, HomePage.REGISTER);
-        WaitFluent.untilElementIsDisplayed(driver, RegisterUserPage.REGISTER_SECTION_LABEL);
+    public static void setupRegisterUser(WebDriver webDriver, RegisterUserPage registerUserPage) {
+        WaitFluent.untilElementIsDisplayed(webDriver, HomePage.REGISTER);
+        Element.action.click(webDriver, HomePage.REGISTER);
+        WaitFluent.untilElementIsDisplayed(webDriver, RegisterUserPage.REGISTER_SECTION_LABEL);
         Assert.assertTrue(registerUserPage.isBrowserOnPage());
     }
 
-    @Test(groups = {"registerUser"})
-    public void testRegisterUser() {
+    private static void completeRegisterUserForm(RegisterUserPage registerUserPage, ParabankUser parabankUser) {
         registerUserPage.enterFirstName(parabankUser.firstName);
         registerUserPage.enterLastName(parabankUser.lastName);
         registerUserPage.enterAddress(parabankUser.address);
@@ -50,8 +47,14 @@ public class TestRegisterUser extends BaseTest {
         registerUserPage.enterUsername(parabankUser.username);
         registerUserPage.enterPassword(parabankUser.password);
         registerUserPage.enterConfirmPassword(parabankUser.password);
-        registerUserPage.clickRegisterButton();
+    }
 
+    public static void registerUser(RegisterUserPage registerUserPage) {
+        ParabankUser parabankUser = new ParabankUser(ENV_VARS);
+        WebDriver driver = registerUserPage.getDriver();
+
+        completeRegisterUserForm(registerUserPage, parabankUser);
+        registerUserPage.clickRegisterButton();
         boolean isUserAlreadyRegistered = Element.info.isDisplayed(driver, RegisterUserPage.USERNAME_ERRORS);
 
         if (isUserAlreadyRegistered) {
@@ -61,6 +64,12 @@ public class TestRegisterUser extends BaseTest {
             WaitFluent.untilElementIsDisplayed(driver, AccountsOverviewPage.WELCOME_NEW_ACCOUNT_LABEL);
             Assert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_NEW_ACCOUNT_LABEL).isDisplayed());
             Assert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_NEW_ACCOUNT_MESSAGE).isDisplayed());
+            System.out.println("User is registered.");
         }
+    }
+
+    @Test(groups="registerUser")
+    public void testRegisterUser() {
+        registerUser(registerUserPage);
     }
 }
