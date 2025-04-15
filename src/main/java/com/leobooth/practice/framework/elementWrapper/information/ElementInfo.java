@@ -15,6 +15,7 @@ public class ElementInfo {
 
     public boolean isDisplayed(WebDriver driver, By locator) {
         boolean isDisplayed;
+
         try {
             isDisplayed = driver.findElement(locator).isDisplayed();
         } catch (NoSuchElementException nsee) {
@@ -22,5 +23,17 @@ public class ElementInfo {
         }
 
         return isDisplayed;
+    }
+
+    public String getText(WebDriver driver, By locator) {
+        String textOutput;
+
+        try {
+            textOutput = driver.findElement(locator).getText();
+        } catch (NoSuchElementException nsee) {
+            textOutput = "";
+        }
+
+        return textOutput;
     }
 }
