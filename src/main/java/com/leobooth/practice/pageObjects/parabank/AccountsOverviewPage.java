@@ -26,6 +26,9 @@ public class AccountsOverviewPage extends BasePage {
     public static By LOG_OUT = By.xpath("//li/a[text()='Log Out']");
 
     public static By ACCOUNTS_OVERVIEW_LABEL = By.xpath("//div[@id='overviewAccountsApp']/descendant::h1[contains(text(),'Accounts Overview')]");
+    public static By WELCOME_NEW_ACCOUNT_LABEL = By.xpath("//div[@id='rightPanel']/h1[contains(text(),'Welcome')]");
+    public static By WELCOME_NEW_ACCOUNT_MESSAGE = By.xpath("//div[@id='rightPanel']/p[contains(text(),'Your account was created successfully.')]");
+
 
     public void logout() {
         getDriver().findElement(LOG_OUT).click();

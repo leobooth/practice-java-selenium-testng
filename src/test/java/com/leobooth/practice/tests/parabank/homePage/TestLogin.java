@@ -18,19 +18,23 @@ public class TestLogin extends BaseTest {
     public void setup() {
         driver = setupTestDriver();
         driver.manage().window().maximize();
+        setupLogin();
+    }
+
+    public void setupLogin() {
         homePage = new HomePage(driver);
         homePage.navToPage();
         WaitFluent.untilElementIsDisplayed(driver, HomePage.PARABANK_LOGO);
-    }
-
-    // the Parabank website erases registered users often; re-register before running login test
-    @Test(groups = "login")
-    public void testLogin() {
         String username = ENV_VARS.get("PARABANK_USERNAME");
         String password = ENV_VARS.get("PARABANK_PASSWORD");
         homePage.login(username, password);
         accountsOverviewPage = new AccountsOverviewPage(driver);
         WaitFluent.untilElementIsDisplayed(driver, AccountsOverviewPage.WELCOME_MESSAGE);
+    }
+
+    // the Parabank website erases registered users often; re-register before running login test
+    @Test(groups = "login")
+    public void testLogin() {
         Assert.assertTrue(accountsOverviewPage.isBrowserOnPage(), "After login, the browser did not navigate to Accounts Overview page.");
         Assert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_MESSAGE).isDisplayed(), "After login, the welcome message did not appear.");
         Assert.assertTrue(driver.findElement(AccountsOverviewPage.ACCOUNTS_OVERVIEW_LABEL).isDisplayed(), "After login, the Accounts Overview page section did not appear.");
@@ -40,8 +44,6 @@ public class TestLogin extends BaseTest {
     public void testLogout() {
         accountsOverviewPage.logout();
         WaitFluent.untilElementIsDisplayed(driver, HomePage.CUSTOMER_LOGIN_LABEL);
-        String currentUrl = driver.getCurrentUrl();
-        String homePageUrl = HomePage.pageUrl;
-        Assert.assertTrue(currentUrl.contains(homePageUrl));
+        Assert.assertTrue(homePage.isBrowserOnPage());
     }
 }

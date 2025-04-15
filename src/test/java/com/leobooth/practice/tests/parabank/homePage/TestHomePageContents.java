@@ -20,6 +20,10 @@ public class TestHomePageContents extends BaseTest {
         driver = setupTestDriver();
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
+        setupHomePage(driver, homePage);
+    }
+
+    public static void setupHomePage(WebDriver driver, HomePage homePage) {
         homePage.navToPage();
         WaitFluent.untilElementIsDisplayed(driver, HomePage.PARABANK_LOGO);
     }

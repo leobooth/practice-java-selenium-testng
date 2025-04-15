@@ -1,9 +1,9 @@
 package com.leobooth.practice.pageObjects.parabank;
 
 import com.leobooth.practice.framework.baseObjects.BasePage;
+import com.leobooth.practice.framework.elementWrapper.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -116,11 +116,8 @@ public class HomePage extends BasePage {
   }
 
   public void login(String username, String password) {
-    WebElement usernameInput = getDriver().findElement(USERNAME_INPUT);
-    usernameInput.sendKeys(username);
-    WebElement passwordInput = getDriver().findElement(PASSWORD_INPUT);
-    passwordInput.sendKeys(password);
-    WebElement loginButton = getDriver().findElement(LOGIN_BUTTON);
-    loginButton.click();
+    Element.action.sendKeys(driver, USERNAME_INPUT, username);
+    Element.action.sendKeys(driver, PASSWORD_INPUT, password);
+    Element.action.click(driver, LOGIN_BUTTON);
   }
 }

@@ -4,6 +4,7 @@ import com.leobooth.practice.framework.baseObjects.BaseTest;
 import com.leobooth.practice.framework.waits.WaitFluent;
 import com.leobooth.practice.pageObjects.parabank.AccountsOverviewPage;
 import com.leobooth.practice.pageObjects.parabank.HomePage;
+import com.leobooth.practice.tests.parabank.homePage.TestHomePageContents;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -20,8 +21,7 @@ public class TestAccountsOverview extends BaseTest {
         driver = setupTestDriver();
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
-        homePage.navToPage();
-        WaitFluent.untilElementIsDisplayed(driver, HomePage.PARABANK_LOGO);
+        TestHomePageContents.setupHomePage(driver, homePage);
     }
 
     @Test(dependsOnGroups = {"login"})
@@ -31,17 +31,5 @@ public class TestAccountsOverview extends BaseTest {
         Assert.assertEquals(expectedCustomerName, actualCustomerName, "When logged in, " +
                 "the expected customer name '" + expectedCustomerName + "' did not match " +
                 "the actual customer name '" + actualCustomerName + "'");
-    }
-
-    @Test(dependsOnGroups = {"login"})
-    public void testLogout() {
-
-    }
-
-    @AfterClass()
-    public void logout() {
-        if (driver.getCurrentUrl().equals(AccountsOverviewPage.pageUrl)) {
-            accountsOverviewPage.logout();
-        }
     }
 }
