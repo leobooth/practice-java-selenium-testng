@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriverException;
 
 public class BasePage {
 
-  private WebDriver driver = null;
+  protected WebDriver driver = null;
   private String pageUrl = null;
   private String pageName = null;
 
