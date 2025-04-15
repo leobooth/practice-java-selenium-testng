@@ -16,5 +16,26 @@ public class AccountsOverviewPage extends BasePage {
         this.setPageName(pageName);
     }
 
+    public static By WELCOME_MESSAGE = By.xpath("//p[b[contains(text(),'Welcome')]]");
+    public static By ACCOUNT_SERVICES_LABEL;
+    public static By TRANSFER_FUNDS_LABEL;
+    public static By BILL_PAY;
+    public static By FIND_TRANSACTIONS;
+    public static By UPDATE_CONTACT_INFO;
+    public static By REQUEST_LOAN;
+    public static By LOG_OUT = By.xpath("//li/a[text()='Log Out']");
+
     public static By ACCOUNTS_OVERVIEW_LABEL = By.xpath("//div[@id='overviewAccountsApp']/descendant::h1[contains(text(),'Accounts Overview')]");
+
+    public void logout() {
+        getDriver().findElement(LOG_OUT).click();
+    }
+
+    public String getCustomerNameFromWelcome() {
+        WebElement WELCOME_CUSTOMER = getDriver().findElement(WELCOME_MESSAGE);
+        String welcomeMessage = WELCOME_CUSTOMER.getText();
+        String customerName = welcomeMessage.substring("Welcome ".length()).trim();
+        return customerName;
+    }
+
 }
