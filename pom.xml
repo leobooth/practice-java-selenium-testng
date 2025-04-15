@@ -69,11 +69,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
                 <configuration>
-<!--                    <environmentVariables></environmentVariables>-->
                     <groups>${groups}</groups>
 <!--                    <suiteXmlFiles>-->
 <!--                        <suiteXmlFile>${xmlFilePath}</suiteXmlFile>-->
 <!--                    </suiteXmlFiles>-->
+                    <systemPropertyVariables>
+                        <!-- default values provided unless overridden in Maven command line -->
+                        <testBrowser>Chrome</testBrowser>
+                    </systemPropertyVariables>
+                    <parallel>classes</parallel>
                 </configuration>
             </plugin>
         </plugins>
