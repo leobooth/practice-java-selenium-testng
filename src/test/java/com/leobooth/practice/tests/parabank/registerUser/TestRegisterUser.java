@@ -3,11 +3,11 @@ package com.leobooth.practice.tests.parabank.registerUser;
 import com.leobooth.practice.framework.baseObjects.BaseTest;
 import com.leobooth.practice.framework.elementWrapper.Element;
 import com.leobooth.practice.framework.waits.WaitFluent;
-import com.leobooth.practice.pageObjects.parabank.AccountsOverviewPage;
-import com.leobooth.practice.pageObjects.parabank.HomePage;
-import com.leobooth.practice.pageObjects.parabank.ParabankUser;
-import com.leobooth.practice.pageObjects.parabank.RegisterUserPage;
-import com.leobooth.practice.tests.parabank.homePage.TestHomePageContents;
+import com.leobooth.practice.parabank.pageObjects.AccountsOverviewPage;
+import com.leobooth.practice.parabank.pageObjects.ParabankHomePage;
+import com.leobooth.practice.parabank.utilities.ParabankUser;
+import com.leobooth.practice.parabank.pageObjects.RegisterUserPage;
+import com.leobooth.practice.tests.parabank.homePage.TestParabankHomePage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -22,15 +22,15 @@ public class TestRegisterUser extends BaseTest {
     public void setup() {
         driver = setupTestDriver();
         driver.manage().window().maximize();
-        TestHomePageContents.setupHomePage(new HomePage(driver));
+        TestParabankHomePage.setupHomePage(new ParabankHomePage(driver));
         parabankUser = new ParabankUser(ENV_VARS);
         registerUserPage = new RegisterUserPage(driver);
         setupRegisterUser(driver, registerUserPage);
     }
 
     public static void setupRegisterUser(WebDriver webDriver, RegisterUserPage registerUserPage) {
-        WaitFluent.untilElementIsDisplayed(webDriver, HomePage.REGISTER);
-        Element.action.click(webDriver, HomePage.REGISTER);
+        WaitFluent.untilElementIsDisplayed(webDriver, ParabankHomePage.REGISTER);
+        Element.action.click(webDriver, ParabankHomePage.REGISTER);
         WaitFluent.untilElementIsDisplayed(webDriver, RegisterUserPage.REGISTER_SECTION_LABEL);
         Assert.assertTrue(registerUserPage.isBrowserOnPage());
     }

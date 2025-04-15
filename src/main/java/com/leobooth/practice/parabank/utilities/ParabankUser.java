@@ -1,4 +1,4 @@
-package com.leobooth.practice.pageObjects.parabank;
+package com.leobooth.practice.parabank.utilities;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

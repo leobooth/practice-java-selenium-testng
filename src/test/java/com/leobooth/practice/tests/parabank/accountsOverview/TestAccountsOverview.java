@@ -1,10 +1,10 @@
 package com.leobooth.practice.tests.parabank.accountsOverview;
 
 import com.leobooth.practice.framework.baseObjects.BaseTest;
-import com.leobooth.practice.pageObjects.parabank.AccountsOverviewPage;
-import com.leobooth.practice.pageObjects.parabank.HomePage;
-import com.leobooth.practice.tests.parabank.homePage.TestHomePageContents;
-import com.leobooth.practice.tests.parabank.homePage.TestLogin;
+import com.leobooth.practice.parabank.pageObjects.AccountsOverviewPage;
+import com.leobooth.practice.parabank.pageObjects.ParabankHomePage;
+import com.leobooth.practice.tests.parabank.homePage.TestParabankHomePage;
+import com.leobooth.practice.tests.parabank.homePage.TestParabankLogin;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -12,16 +12,16 @@ import org.testng.annotations.Test;
 
 public class TestAccountsOverview extends BaseTest {
     WebDriver driver;
-    HomePage homePage;
+    ParabankHomePage homePage;
     AccountsOverviewPage accountsOverviewPage;
 
     @BeforeClass()
     public void setup() {
         driver = setupTestDriver();
         driver.manage().window().maximize();
-        homePage = new HomePage(driver);
-        TestHomePageContents.setupHomePage(homePage);
-        TestLogin.setupLogin(homePage);
+        homePage = new ParabankHomePage(driver);
+        TestParabankHomePage.setupHomePage(homePage);
+        TestParabankLogin.performParabankLogin(homePage);
         accountsOverviewPage = new AccountsOverviewPage(driver);
     }
 

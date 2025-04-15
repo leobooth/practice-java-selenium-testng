@@ -1,4 +1,4 @@
-package com.leobooth.practice.pageObjects.parabank;
+package com.leobooth.practice.parabank.pageObjects;
 
 import com.leobooth.practice.framework.baseObjects.BasePage;
 import com.leobooth.practice.framework.elementWrapper.Element;
@@ -8,12 +8,12 @@ import org.openqa.selenium.WebDriver;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class HomePage extends BasePage {
+public class ParabankHomePage extends BasePage {
 
   public static String pageUrl = "https://parabank.parasoft.com/parabank/index.htm";
   public static String pageName = "ParaBank home page";
 
-  public HomePage(WebDriver driver) {
+  public ParabankHomePage(WebDriver driver) {
     super(driver);
     this.setPageUrl(pageUrl);
     this.setPageName(pageName);
@@ -120,4 +120,5 @@ public class HomePage extends BasePage {
     Element.action.sendKeys(driver, PASSWORD_INPUT, password);
     Element.action.click(driver, LOGIN_BUTTON);
   }
+
 }

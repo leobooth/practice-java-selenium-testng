@@ -1,9 +1,9 @@
-package com.leobooth.practice.pageObjects.parabank;
+package com.leobooth.practice.parabank.pageObjects;
 
 import com.leobooth.practice.framework.baseObjects.BasePage;
+import com.leobooth.practice.framework.elementWrapper.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class AccountsOverviewPage extends BasePage {
 
@@ -35,8 +35,7 @@ public class AccountsOverviewPage extends BasePage {
     }
 
     public String getCustomerNameFromWelcome() {
-        WebElement WELCOME_CUSTOMER = getDriver().findElement(WELCOME_MESSAGE);
-        String welcomeMessage = WELCOME_CUSTOMER.getText();
+        String welcomeMessage = Element.info.getText(getDriver(), WELCOME_MESSAGE);
         String customerName = welcomeMessage.substring("Welcome ".length()).trim();
         return customerName;
     }

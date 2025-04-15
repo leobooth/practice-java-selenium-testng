@@ -2,7 +2,7 @@ package com.leobooth.practice.tests.parabank.homePage;
 
 import com.leobooth.practice.framework.waits.WaitFluent;
 import com.leobooth.practice.framework.baseObjects.BaseTest;
-import com.leobooth.practice.pageObjects.parabank.HomePage;
+import com.leobooth.practice.parabank.pageObjects.ParabankHomePage;
 
 import org.openqa.selenium.WebDriver;
 
@@ -11,38 +11,38 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class TestHomePageContents extends BaseTest {
+public class TestParabankHomePage extends BaseTest {
     WebDriver driver;
-    HomePage homePage;
+    ParabankHomePage parabankHomePage;
 
     @BeforeClass()
     public void setup() {
         driver = setupTestDriver();
         driver.manage().window().maximize();
-        homePage = new HomePage(driver);
-        setupHomePage(homePage);
+        parabankHomePage = new ParabankHomePage(driver);
+        setupHomePage(parabankHomePage);
     }
 
-    public static void setupHomePage(HomePage homePage) {
+    public static void setupHomePage(ParabankHomePage homePage) {
         homePage.navToPage();
-        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), HomePage.PARABANK_LOGO);
+        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), ParabankHomePage.PARABANK_LOGO);
     }
 
     @Test(groups = {"smoke"})
     public void testPageUrl() {
-        Assert.assertTrue(homePage.isBrowserOnPage());
+        Assert.assertTrue(parabankHomePage.isBrowserOnPage());
     }
 
     @Test(groups = {"smoke"})
     public void testPageTitle() {
         String expectedTitle = "ParaBank";
-        String actualTitle = homePage.getPageTitle();
+        String actualTitle = parabankHomePage.getPageTitle();
         Assert.assertTrue(actualTitle.contains(expectedTitle), "Page title did not contain " + expectedTitle);
     }
 
     @Test(groups = {"links"})
     public void testHomePageLinks() {
-        SoftAssert softAssert = testExpectedLinksPresent(driver, HomePage.links);
+        SoftAssert softAssert = testExpectedLinksPresent(driver, ParabankHomePage.links);
         softAssert.assertAll();
     }
 }

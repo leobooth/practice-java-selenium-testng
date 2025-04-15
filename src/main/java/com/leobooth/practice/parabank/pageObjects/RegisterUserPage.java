@@ -1,4 +1,4 @@
-package com.leobooth.practice.pageObjects.parabank;
+package com.leobooth.practice.parabank.pageObjects;
 
 import com.leobooth.practice.framework.baseObjects.BasePage;
 import com.leobooth.practice.framework.elementWrapper.Element;
