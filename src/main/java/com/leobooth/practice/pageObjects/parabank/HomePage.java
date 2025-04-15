@@ -23,6 +23,7 @@ public class HomePage extends BasePage {
   public static By PARABANK_LOGO = By.cssSelector("img.logo");
   public static By PARABANK_SLOGAN = By.cssSelector("p.caption");
 
+  // TODO: move to Header page component
   public static By LEFT_MENU_SOLUTIONS = By.xpath("//ul[@class='leftmenu']/descendant::li[text()='Solutions']");
   public static By LEFT_MENU_ABOUT_US = By.xpath("//ul[@class='leftmenu']/descendant::a[text()='About Us']");
   public static By LEFT_MENU_SERVICES = By.xpath("//ul[@class='leftmenu']/descendant::a[text()='Services']");
@@ -30,6 +31,7 @@ public class HomePage extends BasePage {
   public static By LEFT_MENU_LOCATIONS = By.xpath("//ul[@class='leftmenu']/descendant::a[text()='Locations']");
   public static By LEFT_MENU_ADMIN_PAGE = By.xpath("//ul[@class='leftmenu']/descendant::a[text()='Admin Page']");
 
+  // TODO: move to header page component
   public static By HEADER_HOME_BUTTON = By.cssSelector("ul.button li.home");
   public static By HEADER_ABOUT_US_BUTTON = By.cssSelector("ul.button li.aboutus");
   public static By HEADER_CONTACT_BUTTON = By.cssSelector("ul.button li.contact");

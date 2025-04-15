@@ -15,9 +15,9 @@ public class TestHomePageContents extends BaseTest {
     WebDriver driver;
     HomePage homePage;
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass()
     public void setup() {
-        driver = setupTestDriverChrome();
+        driver = setupTestDriver();
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
         homePage.navToPage();
