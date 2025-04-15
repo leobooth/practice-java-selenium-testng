@@ -14,12 +14,6 @@ import org.openqa.selenium.WebElement;
  */
 public class ElementInteractions {
 
-    WebDriver driver;
-
-    public ElementInteractions(WebDriver driver) {
-        this.driver = driver;
-    }
-
     public void click(WebDriver driver, By locator) {
         WebElement element = driver.findElement(locator);
         element.click();

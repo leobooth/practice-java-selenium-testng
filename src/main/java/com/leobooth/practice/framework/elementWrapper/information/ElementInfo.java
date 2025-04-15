@@ -13,12 +13,6 @@ import org.openqa.selenium.WebDriver;
  */
 public class ElementInfo {
 
-    WebDriver driver;
-
-    public ElementInfo(WebDriver driver) {
-        this.driver = driver;
-    }
-
     public boolean isDisplayed(WebDriver driver, By locator) {
         boolean isDisplayed;
         try {
