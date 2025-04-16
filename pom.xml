@@ -78,6 +78,7 @@
                         <testBrowser>Chrome</testBrowser>
                     </systemPropertyVariables>
                     <parallel>classes</parallel>
+<!--                    <threadCount>3</threadCount>-->
                 </configuration>
             </plugin>
         </plugins>
