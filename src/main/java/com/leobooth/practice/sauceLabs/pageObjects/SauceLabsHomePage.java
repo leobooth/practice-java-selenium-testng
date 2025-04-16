@@ -2,8 +2,10 @@ package com.leobooth.practice.sauceLabs.pageObjects;
 
 import com.leobooth.practice.framework.baseObjects.BasePage;
 import com.leobooth.practice.framework.elementWrapper.Element;
+import com.leobooth.practice.framework.waits.WaitFluent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class SauceLabsHomePage extends BasePage {
 
@@ -24,9 +26,35 @@ public class SauceLabsHomePage extends BasePage {
     public static By LOGIN_BUTTON = By.cssSelector("input#login-button");
 
     public void login(String username, String password) {
+        WaitFluent.untilElementIsDisplayed(driver, USERNAME_INPUT);
+        WaitFluent.untilElementIsDisplayed(driver, PASSWORD_INPUT);
+        clearUsername();
+        clearPassword();
         Element.action.sendKeys(driver, USERNAME_INPUT, username);
         Element.action.sendKeys(driver, PASSWORD_INPUT, password);
+        WaitFluent.untilElementIsDisplayed(driver, LOGIN_BUTTON);
         Element.action.click(driver, LOGIN_BUTTON);
+    }
+
+    public void clearUsername() {
+        WaitFluent.untilElementIsDisplayed(driver, USERNAME_INPUT);
+        Element.action.clear(driver, USERNAME_INPUT);
+        Assert.assertTrue(Element.info.getText(driver, USERNAME_INPUT).isBlank());
+    }
+
+    public void clearPassword() {
+        WaitFluent.untilElementIsDisplayed(driver, PASSWORD_INPUT);
+        Element.action.clear(driver, PASSWORD_INPUT);
+        Assert.assertTrue(Element.info.getText(driver, PASSWORD_INPUT).isBlank());
+    }
+
+    public String getErrorMessage() {
+        WaitFluent.untilElementIsDisplayed(driver, ERROR_MESSAGE);
+        return Element.info.getText(driver, ERROR_MESSAGE);
+    }
+
+    public void closeErrorMessage() {
+        Element.action.click(driver, ERROR_MESSAGE_CLOSE_BUTTON);
     }
 
 }

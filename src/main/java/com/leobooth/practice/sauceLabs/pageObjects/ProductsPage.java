@@ -28,11 +28,13 @@ public class ProductsPage extends BasePage {
     public static By MENU_RESET_APP_STATE = By.cssSelector("a#reset_sidebar_link");
 
     public void openMenu() {
-        Element.action.click(getDriver(), MENU_BUTTON);
-        WaitFluent.untilElementIsDisplayed(getDriver(), MENU_ITEM_LIST);
+        WaitFluent.untilElementsAreDisplayed(driver, MENU_BUTTON);
+        Element.action.click(driver, MENU_BUTTON);
+        WaitFluent.untilElementIsDisplayed(driver, MENU_ITEM_LIST);
     }
 
     public void logout() {
-        Element.action.click(getDriver(), MENU_LOGOUT);
+        WaitFluent.untilElementIsDisplayed(driver, MENU_LOGOUT);
+        Element.action.click(driver, MENU_LOGOUT);
     }
 }

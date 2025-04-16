@@ -35,7 +35,7 @@ public class AccountsOverviewPage extends BasePage {
     }
 
     public String getCustomerNameFromWelcome() {
-        String welcomeMessage = Element.info.getText(getDriver(), WELCOME_MESSAGE);
+        String welcomeMessage = Element.info.getText(driver, WELCOME_MESSAGE);
         String customerName = welcomeMessage.substring("Welcome ".length()).trim();
         return customerName;
     }

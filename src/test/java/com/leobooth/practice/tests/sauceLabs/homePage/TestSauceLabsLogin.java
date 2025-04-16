@@ -6,10 +6,10 @@ import com.leobooth.practice.framework.waits.WaitFluent;
 import com.leobooth.practice.sauceLabs.pageObjects.ProductsPage;
 import com.leobooth.practice.sauceLabs.pageObjects.SauceLabsHomePage;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class TestSauceLabsLogin extends BaseTest {
     WebDriver driver;
@@ -17,13 +17,56 @@ public class TestSauceLabsLogin extends BaseTest {
 
     @BeforeClass()
     public void setup() {
-        driver = setupTestDriver();
+        // run these tests in Edge until you can figure out how to avoid
+        // password 'breach' popup in Chrome for Swag Labs login
+        driver = setupTestDriver("EDGE");
         driver.manage().window().maximize();
         homePage = new SauceLabsHomePage(driver);
         homePage.navToPage();
         WaitFluent.untilElementIsDisplayed(homePage.getDriver(), SauceLabsHomePage.SWAG_LABS_LOGO);
     }
 
+    public static void performSauceLabsLogin(SauceLabsHomePage homePage, String username) {
+        String password = ENV_VARS.get("SAUCELABS_PASSWORD");
+        homePage.login(username, password);
+        ProductsPage productsPage = new ProductsPage(homePage.getDriver());
+        WaitFluent.untilElementIsDisplayed(productsPage.getDriver(), ProductsPage.LOGO);
+    }
+
+    @Test
+    public void testLoginAccepted() {
+        String username = ENV_VARS.get("SAUCELABS_STANDARD_USER");
+        String password = ENV_VARS.get("SAUCELABS_PASSWORD");
+        homePage.login(username, password);
+        ProductsPage productsPage = new ProductsPage(driver);
+        WaitFluent.untilElementIsDisplayed(driver, ProductsPage.LOGO);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(Element.info.isDisplayed(driver, ProductsPage.SHOPPING_CART_BUTTON));
+
+        productsPage.openMenu();
+        productsPage.logout();
+
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void testLoginDenied() {
+        String username = ENV_VARS.get("SAUCELABS_STANDARD_USER");
+        String password = "wrong_password";
+        homePage.login(username, password);
+        String errorMessage = homePage.getErrorMessage();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(errorMessage.contains("Username and password do not match any user"),
+                "Unexpected error message displayed: " + errorMessage);
+
+        homePage.closeErrorMessage();
+
+        softAssert.assertAll();
+    }
+
+    // TODO: test post-login conditions
     @DataProvider(name="usernames")
     public Object[][] UsernamesFeed() {
         Object[][] usernames = new Object[6][1];
@@ -37,43 +80,20 @@ public class TestSauceLabsLogin extends BaseTest {
         return usernames;
     }
 
-    public static void performSauceLabsLogin(SauceLabsHomePage homePage, String username) {
-        String password = ENV_VARS.get("SAUCELABS_PASSWORD");
-        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), SauceLabsHomePage.USERNAME_INPUT);
-        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), SauceLabsHomePage.PASSWORD_INPUT);
-        homePage.login(username, password);
-        ProductsPage productsPage = new ProductsPage(homePage.getDriver());
-        WaitFluent.untilElementIsDisplayed(productsPage.getDriver(), ProductsPage.LOGO);
-    }
-
-    @Test(dataProvider = "usernames")
-    public void testLogin(String username) {
-        String password = ENV_VARS.get("SAUCELABS_PASSWORD");
-        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), SauceLabsHomePage.USERNAME_INPUT);
-        WaitFluent.untilElementIsDisplayed(homePage.getDriver(), SauceLabsHomePage.PASSWORD_INPUT);
-        homePage.login(username, password);
-        ProductsPage productsPage = new ProductsPage(driver);
-
-        if (username.contains("STANDARD_USER")) {
-            WaitFluent.untilElementIsDisplayed(productsPage.getDriver(), ProductsPage.LOGO);
-            Assert.assertTrue(Element.info.isDisplayed(productsPage.getDriver(), ProductsPage.SHOPPING_CART_BUTTON));
-            productsPage.openMenu();
-            productsPage.logout();
-            Assert.assertTrue(Element.info.isDisplayed(homePage.getDriver(), SauceLabsHomePage.LOGIN_BUTTON));
-        }
-    }
-
-    @Test
-    public void testLogout() {
-        String username = ENV_VARS.get("SAUCELABS_STANDARD_USER");
-        performSauceLabsLogin(homePage, username);
-        ProductsPage productsPage = new ProductsPage(homePage.getDriver());
-        WaitFluent.untilElementIsDisplayed(productsPage.getDriver(), ProductsPage.LOGO);
-        Assert.assertTrue(Element.info.isDisplayed(productsPage.getDriver(), ProductsPage.SHOPPING_CART_BUTTON));
-        productsPage.openMenu();
-        productsPage.logout();
-        Assert.assertTrue(Element.info.isDisplayed(homePage.getDriver(), SauceLabsHomePage.LOGIN_BUTTON));
-    }
-
+//    @Test(dataProvider = "usernames")
+//    public void testLogin(String username) {
+//        String password = ENV_VARS.get("SAUCELABS_PASSWORD");
+//        homePage.login(username, password);
+//
+//        switch (username) {
+//            case "standard_user" -> performStandardUserChecks();
+//            case "locked_out_user" -> performLockedOutUserChecks();
+//            case "problem_user" -> performProblemUserChecks();
+//            case "performance_glitch_user" -> performPerformanceGlitchUserChecks();
+//            case "error_user" -> performErrorUserChecks();
+//            case "visual_user" -> performVisualUserChecks();
+//            default -> throw new InvalidArgumentException("Unrecognized Sauce Labs username: " + username);
+//        }
+//    }
 
 }

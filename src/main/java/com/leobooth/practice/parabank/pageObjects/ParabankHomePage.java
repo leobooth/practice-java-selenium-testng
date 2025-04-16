@@ -2,6 +2,7 @@ package com.leobooth.practice.parabank.pageObjects;
 
 import com.leobooth.practice.framework.baseObjects.BasePage;
 import com.leobooth.practice.framework.elementWrapper.Element;
+import com.leobooth.practice.framework.waits.WaitFluent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -116,6 +117,8 @@ public class ParabankHomePage extends BasePage {
   }
 
   public void login(String username, String password) {
+    WaitFluent.untilElementIsDisplayed(driver, USERNAME_INPUT);
+    WaitFluent.untilElementIsDisplayed(driver, PASSWORD_INPUT);
     Element.action.sendKeys(driver, USERNAME_INPUT, username);
     Element.action.sendKeys(driver, PASSWORD_INPUT, password);
     Element.action.click(driver, LOGIN_BUTTON);

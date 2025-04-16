@@ -24,4 +24,9 @@ public class ElementInteractions {
         element.sendKeys(textInput);
     }
 
+    public void clear(WebDriver driver, By locator) {
+        WebElement element = driver.findElement(locator);
+        element.clear();
+    }
+
 }
