@@ -1,6 +1,7 @@
 package com.leobooth.practice.framework.baseObjects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import com.leobooth.practice.framework.waits.WaitFluent;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.asserts.SoftAssert;
@@ -17,8 +19,24 @@ public class BaseTest {
     public static Dotenv ENV_VARS = Dotenv.configure().load();
     private ArrayList<WebDriver> testDrivers = new ArrayList<>();
 
+    // TODO: fix Chrome blocking Sauce Labs tests with popup due to 'breached' demo password
     public WebDriver setupTestDriverChrome() {
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setExperimentalOption("prefs",
+                Map.of(
+                    "profile.password_manager_enabled", false,
+                    "credentials_enable_service", false
+                )
+        );
+
+//        chromeOptions.setExperimentalOption("excludeSwitches",
+//                Arrays.asList(
+//                    "disable-popup-blocking",
+//                    "password-manager-reauthentication"
+//                )
+//        );
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
         testDrivers.add(driver);
         return driver;
     }
