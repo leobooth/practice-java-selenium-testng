@@ -25,7 +25,7 @@ public class TestAccountsOverview extends BaseTest {
         accountsOverviewPage = new AccountsOverviewPage(driver);
     }
 
-    @Test
+    @Test(dependsOnGroups = "registerUser")
     public void testWelcomeMessageCustomerName() {
         String expectedCustomerName = ENV_VARS.get("PARABANK_CUSTOMER_FULL_NAME").trim();
         String actualCustomerName = accountsOverviewPage.getCustomerNameFromWelcome().trim();

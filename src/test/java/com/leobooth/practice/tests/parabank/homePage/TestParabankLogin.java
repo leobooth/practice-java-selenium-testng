@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class TestParabankLogin extends BaseTest {
     WebDriver driver;
@@ -51,9 +52,11 @@ public class TestParabankLogin extends BaseTest {
     public void testLogin() {
         performParabankLogin(homePage);
         accountsOverviewPage = new AccountsOverviewPage(driver);
-        Assert.assertTrue(accountsOverviewPage.isBrowserOnPage(), "After login, the browser did not navigate to Accounts Overview page.");
-        Assert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_MESSAGE).isDisplayed(), "After login, the welcome message did not appear.");
-        Assert.assertTrue(driver.findElement(AccountsOverviewPage.ACCOUNTS_OVERVIEW_LABEL).isDisplayed(), "After login, the Accounts Overview page section did not appear.");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(accountsOverviewPage.isBrowserOnPage(), "After login, the browser did not navigate to Accounts Overview page.");
+        softAssert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_MESSAGE).isDisplayed(), "After login, the welcome message did not appear.");
+        softAssert.assertTrue(driver.findElement(AccountsOverviewPage.ACCOUNTS_OVERVIEW_LABEL).isDisplayed(), "After login, the Accounts Overview page section did not appear.");
+        softAssert.assertAll();
     }
 
     @Test(dependsOnMethods = {"testLogin"})

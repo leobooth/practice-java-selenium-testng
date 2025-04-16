@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class TestRegisterUser extends BaseTest {
     WebDriver driver;
@@ -62,9 +63,10 @@ public class TestRegisterUser extends BaseTest {
             Assert.assertTrue(true);
         } else {
             WaitFluent.untilElementIsDisplayed(driver, AccountsOverviewPage.WELCOME_NEW_ACCOUNT_LABEL);
-            Assert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_NEW_ACCOUNT_LABEL).isDisplayed());
-            Assert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_NEW_ACCOUNT_MESSAGE).isDisplayed());
-            System.out.println("User is registered.");
+            SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_NEW_ACCOUNT_LABEL).isDisplayed());
+            softAssert.assertTrue(driver.findElement(AccountsOverviewPage.WELCOME_NEW_ACCOUNT_MESSAGE).isDisplayed());
+            softAssert.assertAll();
         }
     }
 
